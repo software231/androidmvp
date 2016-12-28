@@ -15,7 +15,7 @@ import com.tinmegali.tutsmvp_sample.data.DBSchema;
  */
 public class Note {
 
-    private int id = -1;
+    private int id = -2;
     private String mText;
     private String mDate;
 
@@ -41,27 +41,27 @@ public class Note {
         return cv;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setDate(String mDate) {
-        this.mDate = mDate;
-    }
-
-    public void setText(String mText) {
-        this.mText = mText;
-    }
-
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getDate() {
         return mDate;
     }
 
+    public void setDate(String mDate) {
+        this.mDate = mDate;
+    }
+
     public String getText() {
         return mText;
+    }
+
+    public void setText(String mText) {
+        this.mText = mText;
     }
 }
