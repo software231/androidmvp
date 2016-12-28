@@ -18,14 +18,14 @@
 
 package com.antonioleiva.mvpexample.app.Login;
 
-public class LoginPresenterImpl implements LoginPresenter, LoginInteractor.OnLoginFinishedListener {
+public class LoginPresenterImpl implements LoginPresenter, LoginModel.OnLoginFinishedListener {
 
     private LoginView loginView;
-    private LoginInteractor loginInteractor;
+    private LoginModel loginModelImp;
 
     public LoginPresenterImpl(LoginView loginView) {
         this.loginView = loginView;
-        this.loginInteractor = new LoginInteractorImpl();
+        this.loginModelImp = new LoginModelImpl();
     }
 
     @Override
@@ -34,7 +34,7 @@ public class LoginPresenterImpl implements LoginPresenter, LoginInteractor.OnLog
             loginView.showProgress();
         }
 
-        loginInteractor.login(username, password, this);
+        loginModelImp.login(username, password, this);
     }
 
     @Override
@@ -62,6 +62,13 @@ public class LoginPresenterImpl implements LoginPresenter, LoginInteractor.OnLog
     public void onSuccess() {
         if (loginView != null) {
             loginView.navigateToHome();
+        }
+    }
+
+    @Override
+    public void onNetworkError() {
+        if (loginView != null) {
+            loginView.setInvalidCredentials();
         }
     }
 }

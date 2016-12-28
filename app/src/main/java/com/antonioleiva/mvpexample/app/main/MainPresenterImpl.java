@@ -21,14 +21,14 @@ package com.antonioleiva.mvpexample.app.main;
 import java.util.List;
 
 
-public class MainPresenterImpl implements MainPresenter, FindItemsInteractor.OnFinishedListener {
+public class MainPresenterImpl implements MainPresenter, ListItemsModel.OnFinishedListener {
 
     private MainView mainView;
-    private FindItemsInteractor findItemsInteractor;
+    private ListItemsModel itemsModelInteraction;
 
-    public MainPresenterImpl(MainView mainView, FindItemsInteractor findItemsInteractor) {
+    public MainPresenterImpl(MainView mainView, ListItemsModel itemsModelInteraction) {
         this.mainView = mainView;
-        this.findItemsInteractor = findItemsInteractor;
+        this.itemsModelInteraction = itemsModelInteraction;
     }
 
     @Override
@@ -37,7 +37,7 @@ public class MainPresenterImpl implements MainPresenter, FindItemsInteractor.OnF
             mainView.showProgress();
         }
 
-        findItemsInteractor.findItems(this);
+        itemsModelInteraction.findItems(this);
     }
 
     @Override

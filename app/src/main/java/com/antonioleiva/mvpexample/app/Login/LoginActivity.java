@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.antonioleiva.mvpexample.app.R;
 import com.antonioleiva.mvpexample.app.main.MainActivity;
@@ -78,6 +79,11 @@ public class LoginActivity extends Activity implements LoginView, View.OnClickLi
     public void navigateToHome() {
         startActivity(new Intent(this, MainActivity.class));
         finish();
+    }
+
+    @Override
+    public void setInvalidCredentials() {
+        Toast.makeText(getApplicationContext(),"Invalid Credentials ", Toast.LENGTH_SHORT).show();
     }
 
     @Override

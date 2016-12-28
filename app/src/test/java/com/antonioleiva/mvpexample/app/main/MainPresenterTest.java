@@ -24,7 +24,7 @@ public class MainPresenterTest {
     @Mock
     MainView view;
     @Mock
-    FindItemsInteractor interactor;
+    ListItemsModel interactor;
 
     private MainPresenterImpl presenter;
 

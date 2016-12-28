@@ -23,7 +23,7 @@ import android.os.Handler;
 import java.util.Arrays;
 import java.util.List;
 
-public class FindItemsInteractorImpl implements FindItemsInteractor {
+public class ItemsModelImpl implements ListItemsModel {
     @Override
     public void findItems(final OnFinishedListener listener) {
         new Handler().postDelayed(new Runnable() {

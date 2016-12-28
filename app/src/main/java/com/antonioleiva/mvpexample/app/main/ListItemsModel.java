@@ -16,18 +16,15 @@
  *
  */
 
-package com.antonioleiva.mvpexample.app.Login;
+package com.antonioleiva.mvpexample.app.main;
 
-public interface LoginInteractor {
+import java.util.List;
 
-    interface OnLoginFinishedListener {
-        void onUsernameError();
+public interface ListItemsModel {
 
-        void onPasswordError();
-
-        void onSuccess();
+    interface OnFinishedListener {
+        void onFinished(List<String> items);
     }
 
-    void login(String username, String password, OnLoginFinishedListener listener);
-
+    void findItems(OnFinishedListener listener);
 }

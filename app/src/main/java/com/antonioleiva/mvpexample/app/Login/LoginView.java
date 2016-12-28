@@ -28,4 +28,6 @@ public interface LoginView {
     void setPasswordError();
 
     void navigateToHome();
+
+    void setInvalidCredentials();
 }
