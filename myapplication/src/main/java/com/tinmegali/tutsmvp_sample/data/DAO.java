@@ -19,24 +19,23 @@ import java.util.ArrayList;
  */
 public class DAO {
 
+    public static final String SORT_ORDER_DEFAULT = DBSchema.TB_NOTES.ID + " DESC";
+    //SELECTIONS
+    private static final String SELECT_ID_BASED = DBSchema.TB_NOTES.ID + " = ? ";
+    private static final String PROJECTION_ALL = " * ";
     private DBSchema mHelper;
     private Context mContext;
-
-    //SELECTIONS
-    private static final String     SELECT_ID_BASED = DBSchema.TB_NOTES.ID + " = ? ";
-    private static final String     PROJECTION_ALL  = " * ";
-    public static final String      SORT_ORDER_DEFAULT  = DBSchema.TB_NOTES.ID + " DESC";
 
     public DAO(Context context) {
         this.mContext = context;
         mHelper = new DBSchema(mContext);
     }
 
-    private SQLiteDatabase getReadDB(){
+    private SQLiteDatabase getReadDB() {
         return mHelper.getReadableDatabase();
     }
 
-    private SQLiteDatabase getWriteDB(){
+    private SQLiteDatabase getWriteDB() {
         return mHelper.getWritableDatabase();
     }
 
@@ -47,7 +46,7 @@ public class DAO {
                 null,
                 note.getValues()
         );
-        Note insertedNote = getNote((int)id);
+        Note insertedNote = getNote((int) id);
         db.close();
         return insertedNote;
     }
@@ -73,12 +72,12 @@ public class DAO {
                 null, null, null,
                 SORT_ORDER_DEFAULT
         );
-        if ( c!= null) {
+        if (c != null) {
             c.moveToFirst();
             ArrayList<Note> notes = new ArrayList<>();
             while (!c.isAfterLast()) {
                 Note note = new Note();
-                note.setId( c.getInt( c.getColumnIndexOrThrow( DBSchema.TB_NOTES.ID )));
+                note.setId(c.getInt(c.getColumnIndexOrThrow(DBSchema.TB_NOTES.ID)));
                 note.setText(c.getString(c.getColumnIndexOrThrow(DBSchema.TB_NOTES.NOTE)));
                 note.setDate(c.getString(c.getColumnIndexOrThrow(DBSchema.TB_NOTES.DATE)));
                 notes.add(note);
@@ -92,7 +91,7 @@ public class DAO {
         }
     }
 
-    public Note getNote(int id){
+    public Note getNote(int id) {
         SQLiteDatabase db = getReadDB();
         Cursor c = db.query(
                 DBSchema.TABLE_NOTES,

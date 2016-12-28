@@ -10,8 +10,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -24,21 +22,17 @@ import com.tinmegali.tutsmvp_sample.main.activity.model.MainModel;
 import com.tinmegali.tutsmvp_sample.main.activity.presenter.MainPresenter;
 import com.tinmegali.tutsmvp_sample.main.activity.view.recycler.NotesViewHolder;
 
-public class MainActivity
-        extends AppCompatActivity
-    implements View.OnClickListener, MVP_Main.RequiredViewOps
-{
-
-    private EditText mTextNewNote;
-    private ListNotes mListAdapter;
-    private ProgressBar mProgress;
-
-    private MVP_Main.ProvidedPresenterOps mPresenter;
+public class MainActivity extends AppCompatActivity
+        implements View.OnClickListener, MVP_Main.RequiredViewOps {
 
     // Responsible to maintain the object's integrity
     // during configurations change
     private final StateMaintainer mStateMaintainer =
-            new StateMaintainer( getFragmentManager(), MainActivity.class.getName());
+            new StateMaintainer(getFragmentManager(), MainActivity.class.getName());
+    private EditText mTextNewNote;
+    private ListNotes mListAdapter;
+    private ProgressBar mProgress;
+    private MVP_Main.ProvidedPresenterOps mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +52,7 @@ public class MainActivity
     /**
      * Setup the Views
      */
-    private void setupViews(){
+    private void setupViews() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -69,7 +63,7 @@ public class MainActivity
         mProgress = (ProgressBar) findViewById(R.id.progressbar);
 
         RecyclerView mList = (RecyclerView) findViewById(R.id.list_notes);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager( this );
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
         mList.setLayoutManager(linearLayoutManager);
@@ -115,7 +109,7 @@ public class MainActivity
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.fab:{
+            case R.id.fab: {
                 // Add new note
                 mPresenter.clickNewNote(mTextNewNote);
             }
@@ -144,12 +138,12 @@ public class MainActivity
 
     @Override
     public void showProgress() {
-        mProgress.setVisibility(View.VISIBLE);;
+        mProgress.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
-        mProgress.setVisibility(View.GONE);;
+        mProgress.setVisibility(View.GONE);
     }
 
     @Override
@@ -168,7 +162,7 @@ public class MainActivity
     }
 
     @Override
-    public void notifyItemRangeChanged(int positionStart, int itemCount){
+    public void notifyItemRangeChanged(int positionStart, int itemCount) {
         mListAdapter.notifyItemRangeChanged(positionStart, itemCount);
     }
 

@@ -15,7 +15,7 @@ import com.tinmegali.tutsmvp_sample.data.DBSchema;
  */
 public class Note {
 
-    private int id = -2;
+    private int id = -1;
     private String mText;
     private String mDate;
 
@@ -33,9 +33,9 @@ public class Note {
         this.mDate = mDate;
     }
 
-    public ContentValues getValues(){
+    public ContentValues getValues() {
         ContentValues cv = new ContentValues();
-        if ( id!=-1) cv.put(DBSchema.TB_NOTES.ID, id);
+        if (id != -1) cv.put(DBSchema.TB_NOTES.ID, id);
         cv.put(DBSchema.TB_NOTES.NOTE, mText);
         cv.put(DBSchema.TB_NOTES.DATE, mDate);
         return cv;

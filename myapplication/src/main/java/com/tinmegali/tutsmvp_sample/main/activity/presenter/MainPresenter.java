@@ -3,7 +3,6 @@ package com.tinmegali.tutsmvp_sample.main.activity.presenter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
-import android.os.Parcelable;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +22,7 @@ import java.util.Locale;
 
 /**
  * Presenter layer on Model View Presenter pattern
- *
+ * <p>
  * ---------------------------------------------------
  * Created by Tin Megali on 18/03/16.
  * Project: tuts+mvp_sample
@@ -43,7 +42,8 @@ public class MainPresenter implements MVP_Main.ProvidedPresenterOps, MVP_Main.Re
 
     /**
      * Presenter Constructor
-     * @param view  MainActivity
+     *
+     * @param view MainActivity
      */
     public MainPresenter(MVP_Main.RequiredViewOps view) {
         mView = new WeakReference<>(view);
@@ -51,8 +51,9 @@ public class MainPresenter implements MVP_Main.ProvidedPresenterOps, MVP_Main.Re
 
     /**
      * Called by View every time it is destroyed.
-     * @param isChangingConfiguration   true: is changing configuration
-     *                                  and will be recreated
+     *
+     * @param isChangingConfiguration true: is changing configuration
+     *                                and will be recreated
      */
     @Override
     public void onDestroy(boolean isChangingConfiguration) {
@@ -61,7 +62,7 @@ public class MainPresenter implements MVP_Main.ProvidedPresenterOps, MVP_Main.Re
         // Inform Model about the event
         mModel.onDestroy(isChangingConfiguration);
         // Activity destroyed
-        if ( !isChangingConfiguration ) {
+        if (!isChangingConfiguration) {
             // Nulls Model when the Activity destruction is permanent
             mModel = null;
         }
@@ -71,11 +72,11 @@ public class MainPresenter implements MVP_Main.ProvidedPresenterOps, MVP_Main.Re
      * Return the View reference.
      * Could throw an exception if the View is unavailable.
      *
-     * @return  {@link com.tinmegali.tutsmvp_sample.main.activity.MVP_Main.RequiredViewOps}
+     * @return {@link com.tinmegali.tutsmvp_sample.main.activity.MVP_Main.RequiredViewOps}
      * @throws NullPointerException when View is unavailable
      */
-    private MVP_Main.RequiredViewOps getView() throws NullPointerException{
-        if ( mView != null )
+    private MVP_Main.RequiredViewOps getView() throws NullPointerException {
+        if (mView != null)
             return mView.get();
         else
             throw new NullPointerException("View is unavailable");
@@ -83,7 +84,8 @@ public class MainPresenter implements MVP_Main.ProvidedPresenterOps, MVP_Main.Re
 
     /**
      * Called by View during the reconstruction events
-     * @param view  Activity instance
+     *
+     * @param view Activity instance
      */
     @Override
     public void setView(MVP_Main.RequiredViewOps view) {
@@ -92,6 +94,7 @@ public class MainPresenter implements MVP_Main.ProvidedPresenterOps, MVP_Main.Re
 
     /**
      * Called by Activity during MVP setup. Only called once.
+     *
      * @param model Model instance
      */
     public void setModel(MVP_Main.ProvidedModelOps model) {
@@ -134,8 +137,9 @@ public class MainPresenter implements MVP_Main.ProvidedPresenterOps, MVP_Main.Re
 
     /**
      * Creat a Toast object with given message
-     * @param msg   Toast message
-     * @return      A Toast object
+     *
+     * @param msg Toast message
+     * @return A Toast object
      */
     private Toast makeToast(String msg) {
         return Toast.makeText(getView().getAppContext(), msg, Toast.LENGTH_SHORT);
@@ -143,7 +147,8 @@ public class MainPresenter implements MVP_Main.ProvidedPresenterOps, MVP_Main.Re
 
     /**
      * Retrieve total Notes count from Model
-     * @return  Notes size
+     *
+     * @return Notes size
      */
     @Override
     public int getNotesCount() {
@@ -152,9 +157,10 @@ public class MainPresenter implements MVP_Main.ProvidedPresenterOps, MVP_Main.Re
 
     /**
      * Create the RecyclerView holder and setup its view
-     * @param parent    Recycler viewgroup
-     * @param viewType  Holder type
-     * @return          Recycler ViewHolder
+     *
+     * @param parent   Recycler viewgroup
+     * @param viewType Holder type
+     * @return Recycler ViewHolder
      */
     @Override
     public NotesViewHolder createViewHolder(ViewGroup parent, int viewType) {
@@ -169,14 +175,15 @@ public class MainPresenter implements MVP_Main.ProvidedPresenterOps, MVP_Main.Re
 
     /**
      * Binds ViewHolder with RecyclerView
-     * @param holder    Holder to bind
-     * @param position  Position on Recycler adapter
+     *
+     * @param holder   Holder to bind
+     * @param position Position on Recycler adapter
      */
     @Override
     public void bindViewHolder(final NotesViewHolder holder, int position) {
         final Note note = mModel.getNote(position);
-        holder.text.setText( note.getText() );
-        holder.date.setText( note.getDate() );
+        holder.text.setText(note.getText());
+        holder.date.setText(note.getDate());
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -188,7 +195,8 @@ public class MainPresenter implements MVP_Main.ProvidedPresenterOps, MVP_Main.Re
 
     /**
      * Retrieve Application Context
-     * @return  Application context
+     *
+     * @return Application context
      */
     @Override
     public Context getAppContext() {
@@ -201,7 +209,8 @@ public class MainPresenter implements MVP_Main.ProvidedPresenterOps, MVP_Main.Re
 
     /**
      * Retrieves Activity context
-     * @return  Activity context
+     *
+     * @return Activity context
      */
     @Override
     public Context getActivityContext() {
@@ -216,13 +225,14 @@ public class MainPresenter implements MVP_Main.ProvidedPresenterOps, MVP_Main.Re
      * Called by View when user clicks on new Note btn.
      * Creates a Note with text typed by the user and asks
      * Model to insert in DB.
-     * @param editText  EdiText with text typed by user
+     *
+     * @param editText EdiText with text typed by user
      */
     @Override
     public void clickNewNote(final EditText editText) {
         getView().showProgress();
         final String noteText = editText.getText().toString();
-        if ( !noteText.isEmpty() ) {
+        if (!noteText.isEmpty()) {
             new AsyncTask<Void, Void, Integer>() {
                 @Override
                 protected Integer doInBackground(Void... params) {
@@ -259,12 +269,13 @@ public class MainPresenter implements MVP_Main.ProvidedPresenterOps, MVP_Main.Re
 
     /**
      * Create a Note object with giver text
-     * @param noteText  String with Note text
-     * @return  A Note object
+     *
+     * @param noteText String with Note text
+     * @return A Note object
      */
     public Note makeNote(String noteText) {
         Note note = new Note();
-        note.setText( noteText );
+        note.setText(noteText);
         note.setDate(getDate());
         return note;
 
@@ -272,7 +283,8 @@ public class MainPresenter implements MVP_Main.ProvidedPresenterOps, MVP_Main.Re
 
     /**
      * Get current Date as a String
-     * @return  The current date
+     *
+     * @return The current date
      */
     private String getDate() {
         return new SimpleDateFormat("HH:mm:ss - MM/dd/yyyy", Locale.getDefault()).format(new Date());
@@ -281,9 +293,10 @@ public class MainPresenter implements MVP_Main.ProvidedPresenterOps, MVP_Main.Re
     /**
      * Called by View when user click on delete button.
      * Create a AlertBox to confirm the action.
-     * @param note          Note to delete
-     * @param adapterPos    Position on adapter
-     * @param layoutPos     Layout position on RecyclerView
+     *
+     * @param note       Note to delete
+     * @param adapterPos Position on adapter
+     * @param layoutPos  Layout position on RecyclerView
      */
     @Override
     public void clickDeleteNote(final Note note, final int adapterPos, final int layoutPos) {
@@ -292,11 +305,12 @@ public class MainPresenter implements MVP_Main.ProvidedPresenterOps, MVP_Main.Re
 
     /**
      * Create an AlertBox to confirm a delete action
-     * @param note          Note to be deleted
-     * @param adapterPos    Adapter postion
-     * @param layoutPos     Recycler layout position
+     *
+     * @param note       Note to be deleted
+     * @param adapterPos Adapter postion
+     * @param layoutPos  Recycler layout position
      */
-    private void openDeleteAlert(final Note note, final int adapterPos, final int layoutPos){
+    private void openDeleteAlert(final Note note, final int adapterPos, final int layoutPos) {
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(getActivityContext());
         alertBuilder.setPositiveButton("DELETE", new DialogInterface.OnClickListener() {
             @Override
@@ -324,9 +338,10 @@ public class MainPresenter implements MVP_Main.ProvidedPresenterOps, MVP_Main.Re
 
     /**
      * Create a asyncTask to delete the object in Model
-     * @param note          Note to delete
-     * @param adapterPos    Adapter position
-     * @param layoutPos     Recycler layout position
+     *
+     * @param note       Note to delete
+     * @param adapterPos Adapter position
+     * @param layoutPos  Recycler layout position
      */
     public void deleteNote(final Note note, final int adapterPos, final int layoutPos) {
         getView().showProgress();
@@ -341,13 +356,13 @@ public class MainPresenter implements MVP_Main.ProvidedPresenterOps, MVP_Main.Re
             protected void onPostExecute(Boolean result) {
                 try {
                     getView().hideProgress();
-                    if ( result ) {
+                    if (result) {
                         // Remove item from RecyclerView
                         getView().notifyItemRemoved(layoutPos);
                         getView().showToast(makeToast("Note deleted."));
                     } else {
                         // Inform about error
-                        getView().showToast(makeToast("Error deleting note["+note.getId()+"]"));
+                        getView().showToast(makeToast("Error deleting note[" + note.getId() + "]"));
                     }
                 } catch (NullPointerException e) {
                     e.printStackTrace();
